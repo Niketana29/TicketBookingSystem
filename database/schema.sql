@@ -179,3 +179,57 @@ FROM Booking b
 JOIN Customer c ON b.customer_id = c.customer_id
 WHERE b.booking_date >= NOW() - INTERVAL 30 DAY
 GROUP BY c.customer_name;
+SELECT venue_name, 
+       (SELECT AVG(ticket_price) FROM Event WHERE Event.venue_id = Venue.venue_id) AS avg_ticket_price
+FROM Venue;
+SELECT event_name, total_seats, available_seats, 
+       (total_seats - available_seats) AS tickets_sold
+FROM Event
+WHERE (total_seats - available_seats) > (total_seats / 2);
+SELECT event_name, 
+       (SELECT SUM(num_tickets) FROM Booking WHERE Booking.event_id = Event.event_id) AS total_tickets_sold
+FROM Event;
+SELECT customer_name FROM Customer c
+WHERE NOT EXISTS (
+    SELECT 1 FROM Booking b WHERE b.customer_id = c.customer_id
+);
+SELECT event_name FROM Event
+WHERE event_id NOT IN (
+    SELECT DISTINCT event_id FROM Booking
+);
+SELECT event_type, SUM(total_sold) AS total_tickets_sold
+FROM (
+    SELECT event_type, SUM(num_tickets) AS total_sold
+    FROM Booking b
+    JOIN Event e ON b.event_id = e.event_id
+    GROUP BY e.event_type
+) AS EventSales
+GROUP BY event_type;
+SELECT event_name, ticket_price FROM Event
+WHERE ticket_price > (
+    SELECT AVG(ticket_price) FROM Event
+);
+SELECT customer_name, 
+       (SELECT SUM(total_cost) FROM Booking WHERE Booking.customer_id = Customer.customer_id) AS total_spent
+FROM Customer;
+SELECT customer_name FROM Customer
+WHERE customer_id IN (
+    SELECT DISTINCT b.customer_id FROM Booking b
+    JOIN Event e ON b.event_id = e.event_id
+    WHERE e.venue_id = (SELECT venue_id FROM Venue WHERE venue_name = 'Madison Square Garden')
+);
+SELECT event_type, SUM(total_sold) AS total_tickets_sold
+FROM (
+    SELECT event_type, SUM(num_tickets) AS total_sold
+    FROM Booking b
+    JOIN Event e ON b.event_id = e.event_id
+    GROUP BY e.event_type
+) AS TicketSales
+GROUP BY event_type;
+SELECT customer_name, 
+       (SELECT COUNT(*) FROM Booking b WHERE b.customer_id = Customer.customer_id 
+       AND DATE_FORMAT(b.booking_date, '%Y-%m') = '2025-04') AS tickets_in_april
+FROM Customer;
+SELECT venue_name, 
+       (SELECT AVG(ticket_price) FROM Event WHERE Event.venue_id = Venue.venue_id) AS avg_ticket_price
+FROM Venue;
