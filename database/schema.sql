@@ -111,3 +111,71 @@ SELECT * FROM Event WHERE total_seats > 15000 ORDER BY total_seats DESC;
 SELECT * FROM Event WHERE event_name NOT LIKE 'x%' 
 AND event_name NOT LIKE 'y%' 
 AND event_name NOT LIKE 'z%';
+SELECT event_name, AVG(ticket_price) AS avg_ticket_price
+FROM Event
+GROUP BY event_name;
+
+SELECT e.event_name, SUM(b.total_cost) AS total_revenue
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY e.event_name;
+SELECT e.event_name, SUM(b.num_tickets) AS total_tickets_sold
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY e.event_name
+ORDER BY total_tickets_sold DESC
+LIMIT 1;
+
+SELECT e.event_name, SUM(b.num_tickets) AS total_tickets_sold
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY e.event_name;
+
+SELECT e.event_name
+FROM Event e
+LEFT JOIN Booking b ON e.event_id = b.event_id
+WHERE b.booking_id IS NULL;
+SELECT c.customer_name, SUM(b.num_tickets) AS total_tickets
+FROM Booking b
+JOIN Customer c ON b.customer_id = c.customer_id
+GROUP BY c.customer_name
+ORDER BY total_tickets DESC
+LIMIT 1;
+SELECT MONTH(e.event_date) AS event_month, e.event_name, SUM(b.num_tickets) AS total_tickets_sold
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY event_month, e.event_name
+ORDER BY event_month;
+SELECT v.venue_name, AVG(e.ticket_price) AS avg_ticket_price
+FROM Event e
+JOIN Venue v ON e.venue_id = v.venue_id
+GROUP BY v.venue_name;
+
+SELECT e.event_type, SUM(b.num_tickets) AS total_tickets_sold
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY e.event_type;
+SELECT YEAR(e.event_date) AS event_year, SUM(b.total_cost) AS total_revenue
+FROM Booking b
+JOIN Event e ON b.event_id = e.event_id
+GROUP BY event_year
+ORDER BY event_year;
+SELECT c.customer_name, COUNT(DISTINCT b.event_id) AS event_count
+FROM Booking b
+JOIN Customer c ON b.customer_id = c.customer_id
+GROUP BY c.customer_name
+HAVING event_count > 1;
+SELECT c.customer_name, SUM(b.total_cost) AS total_spent
+FROM Booking b
+JOIN Customer c ON b.customer_id = c.customer_id
+GROUP BY c.customer_name
+ORDER BY total_spent DESC;
+SELECT v.venue_name, e.event_type, AVG(e.ticket_price) AS avg_ticket_price
+FROM Event e
+JOIN Venue v ON e.venue_id = v.venue_id
+GROUP BY v.venue_name, e.event_type;
+SELECT c.customer_name, SUM(b.num_tickets) AS total_tickets_purchased
+FROM Booking b
+JOIN Customer c ON b.customer_id = c.customer_id
+WHERE b.booking_date >= NOW() - INTERVAL 30 DAY
+GROUP BY c.customer_name;
