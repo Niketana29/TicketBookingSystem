@@ -31,22 +31,22 @@ public class TicketBookingSystem {
         // Booking System Menu
         while (true) {
             System.out.println("\n=============================");
-            System.out.println("   🎟️ TICKET BOOKING MENU   ");
+            System.out.println("    TICKET BOOKING MENU   ");
             System.out.println("=============================");
-            System.out.println("1️⃣ View Event Details");
-            System.out.println("2️⃣ Book Tickets");
-            System.out.println("3️⃣ Cancel Booking");
-            System.out.println("4️⃣ Choose Ticket Category");
-            System.out.println("5️⃣ Show Total Revenue");
-            System.out.println("6️⃣ Exit");
-            System.out.print("🔹 Choose an option: ");
+            System.out.println("1️ View Event Details");
+            System.out.println("2️ Book Tickets");
+            System.out.println("3️ Cancel Booking");
+            System.out.println("4️ Choose Ticket Category");
+            System.out.println("5️ Show Total Revenue");
+            System.out.println("6️ Exit");
+            System.out.print(" Choose an option: ");
 
             int choice;
             try {
                 choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
             } catch (InputMismatchException e) {
-                System.out.println("❌ Invalid input! Please enter a valid number.");
+                System.out.println(" Invalid input! Please enter a valid number.");
                 scanner.nextLine(); // Consume invalid input
                 continue;
             }
@@ -64,7 +64,7 @@ public class TicketBookingSystem {
                         scanner.nextLine();
                         if (numTickets <= 0) throw new IllegalArgumentException("Number of tickets must be greater than 0.");
                     } catch (InputMismatchException e) {
-                        System.out.println("❌ Invalid input! Please enter a valid number.");
+                        System.out.println(" Invalid input! Please enter a valid number.");
                         scanner.nextLine();
                         continue;
                     } catch (IllegalArgumentException e) {
