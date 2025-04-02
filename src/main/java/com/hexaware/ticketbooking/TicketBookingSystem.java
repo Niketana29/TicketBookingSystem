@@ -33,12 +33,12 @@ public class TicketBookingSystem {
             System.out.println("\n=============================");
             System.out.println("    TICKET BOOKING MENU   ");
             System.out.println("=============================");
-            System.out.println("1️ View Event Details");
-            System.out.println("2️ Book Tickets");
-            System.out.println("3️ Cancel Booking");
-            System.out.println("4️ Choose Ticket Category");
-            System.out.println("5️ Show Total Revenue");
-            System.out.println("6️ Exit");
+            System.out.println("1 View Event Details");
+            System.out.println("2 Book Tickets");
+            System.out.println("3 Cancel Booking");
+            System.out.println("4 Choose Ticket Category");
+            System.out.println("5 Show Total Revenue");
+            System.out.println("6 Exit");
             System.out.print(" Choose an option: ");
 
             int choice;
@@ -68,15 +68,15 @@ public class TicketBookingSystem {
                         scanner.nextLine();
                         continue;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("❌ " + e.getMessage());
+                        System.out.println(e.getMessage());
                         continue;
                     }
 
                     Booking booking = new Booking(event, numTickets);
                     if (booking.bookTickets()) {
-                        System.out.println("✅ Booking confirmed for " + numTickets + " tickets!");
+                        System.out.println(" Booking confirmed for " + numTickets + " tickets!");
                     } else {
-                        System.out.println("⚠️ Not enough seats available. Booking failed.");
+                        System.out.println(" Not enough seats available. Booking failed.");
                     }
                     break;
                 case 3:
@@ -87,23 +87,23 @@ public class TicketBookingSystem {
                         scanner.nextLine();
                         if (cancelTickets <= 0) throw new IllegalArgumentException("Number of tickets must be greater than 0.");
                     } catch (InputMismatchException e) {
-                        System.out.println("❌ Invalid input! Please enter a valid number.");
+                        System.out.println(" Invalid input! Please enter a valid number.");
                         scanner.nextLine();
                         continue;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("❌ " + e.getMessage());
+                        System.out.println(e.getMessage());
                         continue;
                     }
 
                     event.cancelBooking(cancelTickets);
-                    System.out.println("✅ Successfully canceled " + cancelTickets + " tickets.");
+                    System.out.println(" Successfully canceled " + cancelTickets + " tickets.");
                     break;
                 case 4:
                     // Ticket Category Selection
-                    System.out.println("\n🎟️ Choose a ticket category:");
-                    System.out.println("1️⃣ Silver - Rs.500");
-                    System.out.println("2️⃣ Gold - Rs.1000");
-                    System.out.println("3️⃣ Diamond - Rs.2000");
+                    System.out.println("\n Choose a ticket category:");
+                    System.out.println("1 Silver - Rs.500");
+                    System.out.println("2 Gold - Rs.1000");
+                    System.out.println("3 Diamond - Rs.2000");
                     System.out.print("🔹 Enter your choice: ");
 
                     int ticketPrice = 0;
@@ -119,39 +119,39 @@ public class TicketBookingSystem {
                             ticketPrice = 2000;
                             break;
                         default:
-                            System.out.println("❌ Invalid choice. Please select a valid category.");
+                            System.out.println(" Invalid choice. Please select a valid category.");
                             continue;
                     }
 
                     // Ask for number of tickets
-                    System.out.print("🔹 Enter the number of tickets you want to book: ");
+                    System.out.print(" Enter the number of tickets you want to book: ");
                     int categoryTickets;
                     try {
                         categoryTickets = scanner.nextInt();
                         scanner.nextLine();
                         if (categoryTickets <= 0) throw new IllegalArgumentException("Number of tickets must be greater than 0.");
                     } catch (InputMismatchException e) {
-                        System.out.println("❌ Invalid input! Please enter a valid number.");
+                        System.out.println(" Invalid input! Please enter a valid number.");
                         scanner.nextLine();
                         continue;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("❌ " + e.getMessage());
+                        System.out.println(e.getMessage());
                         continue;
                     }
 
                     // Calculate total cost
                     int totalCost = ticketPrice * categoryTickets;
-                    System.out.println("✅ Total cost for " + categoryTickets + " tickets: Rs." + totalCost);
+                    System.out.println(" Total cost for " + categoryTickets + " tickets: Rs." + totalCost);
                     break;
                 case 5:
-                    System.out.println("\n💰 Total Revenue: Rs." + event.calculateTotalRevenue());
+                    System.out.println("\n Total Revenue: Rs." + event.calculateTotalRevenue());
                     break;
                 case 6:
-                    System.out.println("🚀 Thank you for using the Ticket Booking System! Goodbye!");
+                    System.out.println(" Thank you for using the Ticket Booking System! Goodbye!");
                     scanner.close();
                     return;
                 default:
-                    System.out.println("❌ Invalid choice. Try again.");
+                    System.out.println(" Invalid choice. Try again.");
             }
         }
     }
