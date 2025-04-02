@@ -1,0 +1,67 @@
+package com.hexaware.ticketbooking;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Event {
+    public enum EventType { MOVIE, SPORTS, CONCERT }
+
+    private String eventName;
+    private LocalDate eventDate;
+    private LocalTime eventTime;
+    private String venueName;
+    private int totalSeats;
+    private int availableSeats;
+    private double ticketPrice;
+    private EventType eventType;
+
+    // Default constructor
+    public Event() {}
+
+    // Parameterized constructor
+    public Event(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName, int totalSeats, double ticketPrice, EventType eventType) {
+        this.eventName = eventName;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.venueName = venueName;
+        this.totalSeats = totalSeats;
+        this.availableSeats = totalSeats;
+        this.ticketPrice = ticketPrice;
+        this.eventType = eventType;
+    }
+
+    // Getters & Setters
+    public String getEventName() { return eventName; }
+    public LocalDate getEventDate() { return eventDate; }
+    public LocalTime getEventTime() { return eventTime; }
+    public int getAvailableSeats() { return availableSeats; }
+    public double getTicketPrice() { return ticketPrice; }
+    public EventType getEventType() { return eventType; }
+
+    // Book tickets
+    public boolean bookTickets(int numTickets) {
+        if (numTickets > availableSeats) {
+            System.out.println("Not enough seats available.");
+            return false;
+        }
+        availableSeats -= numTickets;
+        return true;
+    }
+
+    // Cancel tickets
+    public void cancelBooking(int numTickets) {
+        availableSeats += numTickets;
+    }
+
+    // Calculate total revenue
+    public double calculateTotalRevenue() {
+        return (totalSeats - availableSeats) * ticketPrice;
+    }
+
+    // Display event details
+    public void displayEventDetails() {
+        System.out.println("Event: " + eventName + " | Date: " + eventDate + " | Time: " + eventTime);
+        System.out.println("Venue: " + venueName + " | Available Seats: " + availableSeats + "/" + totalSeats);
+        System.out.println("Ticket Price: Rs." + ticketPrice + " | Type: " + eventType);
+    }
+}
