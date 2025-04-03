@@ -10,7 +10,8 @@ public class TicketBookingSystem {
         Scanner scanner = new Scanner(System.in);
 
         // Create an Event
-        Event event = new Event("Music Concert", LocalDate.of(2025, 4, 15), LocalTime.of(18, 30), "Grand Hall", 100, 1500.0, Event.EventType.CONCERT);
+        Event event = new Concert("Music Concert", LocalDate.of(2025, 4, 15), LocalTime.of(18, 30), "Grand Hall", 100, 1500.0, "John Doe");
+
 
         // Create a Venue
         Venue venue = new Venue("Grand Hall", "123 Main Street, City");
@@ -104,7 +105,7 @@ public class TicketBookingSystem {
                     System.out.println("1 Silver - Rs.500");
                     System.out.println("2 Gold - Rs.1000");
                     System.out.println("3 Diamond - Rs.2000");
-                    System.out.print("🔹 Enter your choice: ");
+                    System.out.print(" Enter your choice: ");
 
                     int ticketPrice = 0;
                     String categoryChoice = scanner.nextLine();

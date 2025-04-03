@@ -4,7 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Movie extends Event {
-    public Movie(String eventName, String date, String time, String venueName, int totalSeats, double ticketPrice) {
-        super(eventName, LocalDate.parse(date), LocalTime.parse(time), venueName, totalSeats, ticketPrice, EventType.MOVIE);
+    private String genre;
+
+    public Movie(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName, int totalSeats, double ticketPrice, String genre) {
+        super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, EventType.MOVIE);
+        this.genre = genre;
+    }
+
+    @Override
+    public void displayEventTypeDetails() {
+        System.out.println("Movie Genre: " + genre);
     }
 }

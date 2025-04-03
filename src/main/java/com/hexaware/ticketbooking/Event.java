@@ -3,22 +3,19 @@ package com.hexaware.ticketbooking;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Event {
+public abstract class Event {
     public enum EventType { MOVIE, SPORTS, CONCERT }
 
-    private String eventName;
-    private LocalDate eventDate;
-    private LocalTime eventTime;
-    private String venueName;
-    private int totalSeats;
-    private int availableSeats;
-    private double ticketPrice;
-    private EventType eventType;
+    protected String eventName;
+    protected LocalDate eventDate;
+    protected LocalTime eventTime;
+    protected String venueName;
+    protected int totalSeats;
+    protected int availableSeats;
+    protected double ticketPrice;
+    protected EventType eventType;
 
-    // Default constructor
-    public Event() {}
-
-    // Parameterized constructor
+    // Constructor
     public Event(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName, int totalSeats, double ticketPrice, EventType eventType) {
         this.eventName = eventName;
         this.eventDate = eventDate;
@@ -30,7 +27,7 @@ public class Event {
         this.eventType = eventType;
     }
 
-    // Getters & Setters
+    // Getters
     public String getEventName() { return eventName; }
     public LocalDate getEventDate() { return eventDate; }
     public LocalTime getEventTime() { return eventTime; }
@@ -58,10 +55,13 @@ public class Event {
         return (totalSeats - availableSeats) * ticketPrice;
     }
 
-    // Display event details
+    // Display common event details
     public void displayEventDetails() {
         System.out.println("Event: " + eventName + " | Date: " + eventDate + " | Time: " + eventTime);
         System.out.println("Venue: " + venueName + " | Available Seats: " + availableSeats + "/" + totalSeats);
         System.out.println("Ticket Price: Rs." + ticketPrice + " | Type: " + eventType);
     }
+
+    // Abstract method for event-specific details
+    public abstract void displayEventTypeDetails();
 }
