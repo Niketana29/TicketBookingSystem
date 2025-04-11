@@ -1,4 +1,4 @@
-package com.hexaware.ticketbooking;
+package com.hexaware.bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,28 +9,33 @@ public abstract class Event {
     protected String eventName;
     protected LocalDate eventDate;
     protected LocalTime eventTime;
-    protected String venueName;
+    protected Venue venue;
     protected int totalSeats;
     protected int availableSeats;
     protected double ticketPrice;
     protected EventType eventType;
 
-    // Constructor
-    public Event(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName, int totalSeats, double ticketPrice, EventType eventType) {
+    // Default constructor
+    public Event() {}
+
+    // Parameterized constructor
+    public Event(String eventName, LocalDate eventDate, LocalTime eventTime, Venue venue, int totalSeats, double ticketPrice, EventType eventType) {
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
-        this.venueName = venueName;
+        this.venue = venue;
         this.totalSeats = totalSeats;
         this.availableSeats = totalSeats;
         this.ticketPrice = ticketPrice;
         this.eventType = eventType;
     }
 
-    // Getters
+    // Getters and Setters
     public String getEventName() { return eventName; }
     public LocalDate getEventDate() { return eventDate; }
     public LocalTime getEventTime() { return eventTime; }
+    public Venue getVenue() { return venue; }
+    public int getTotalSeats() { return totalSeats; }
     public int getAvailableSeats() { return availableSeats; }
     public double getTicketPrice() { return ticketPrice; }
     public EventType getEventType() { return eventType; }
@@ -50,18 +55,23 @@ public abstract class Event {
         availableSeats += numTickets;
     }
 
-    // Calculate total revenue
+    // Revenue
     public double calculateTotalRevenue() {
         return (totalSeats - availableSeats) * ticketPrice;
     }
 
-    // Display common event details
-    public void displayEventDetails() {
-        System.out.println("Event: " + eventName + " | Date: " + eventDate + " | Time: " + eventTime);
-        System.out.println("Venue: " + venueName + " | Available Seats: " + availableSeats + "/" + totalSeats);
-        System.out.println("Ticket Price: Rs." + ticketPrice + " | Type: " + eventType);
+    public int getBookedNoOfTickets() {
+        return totalSeats - availableSeats;
     }
 
-    // Abstract method for event-specific details
+    // Display event details
+    public void displayEventDetails() {
+        System.out.println("Event: " + eventName + " | Date: " + eventDate + " | Time: " + eventTime);
+        System.out.println("Venue: " + venue.getVenueName() + " | Available Seats: " + availableSeats + "/" + totalSeats);
+        System.out.println("Ticket Price: Rs." + ticketPrice + " | Type: " + eventType);
+        System.out.println("Venue Address: " + venue.getAddress());
+    }
+
+    // Abstract
     public abstract void displayEventTypeDetails();
 }
